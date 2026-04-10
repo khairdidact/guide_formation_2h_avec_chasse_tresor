@@ -1,0 +1,291 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.w{padding:1rem 0;font-family:var(--font-sans)}
+.hdr{margin-bottom:1.25rem}
+.hdr h2{font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}
+.hdr p{font-size:12px;color:var(--color-text-secondary)}
+.tl{display:flex;border-radius:var(--border-radius-md);overflow:hidden;border:0.5px solid var(--color-border-tertiary);margin-bottom:1.25rem}
+.ti{flex:1;padding:9px 6px;cursor:pointer;border-right:0.5px solid var(--color-border-tertiary);transition:background .15s;text-align:center;position:relative}
+.ti:last-child{border-right:none}
+.ti:hover{background:var(--color-background-secondary)}
+.ti.on{background:var(--color-background-secondary)}
+.ti.on::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--pc)}
+.ti-n{font-size:10px;color:var(--color-text-tertiary);margin-bottom:1px}
+.ti-t{font-size:11px;font-weight:500;color:var(--color-text-primary);line-height:1.3}
+.ti-d{font-size:10px;color:var(--color-text-secondary);margin-top:1px}
+.pc{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
+.ph{padding:.9rem 1.1rem;display:flex;align-items:center;gap:10px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.pb{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.pm{flex:1}
+.pm h3{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.pm p{font-size:11px;color:var(--color-text-secondary);margin-top:1px}
+.pd{font-size:20px;font-weight:500;color:var(--color-text-primary);white-space:nowrap}
+.obj-bar{padding:.75rem 1.1rem;background:var(--color-background-secondary);border-bottom:0.5px solid var(--color-border-tertiary);font-size:12px;color:var(--color-text-primary);line-height:1.6}
+.obj-lbl{font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.vtabs{display:flex;gap:0;padding:.75rem 1.1rem .6rem;border-bottom:0.5px solid var(--color-border-tertiary)}
+.vt{padding:5px 12px;font-size:12px;cursor:pointer;border-radius:20px;border:0.5px solid var(--color-border-tertiary);background:transparent;color:var(--color-text-secondary);transition:all .15s;margin-right:6px}
+.vt.on{background:var(--color-background-secondary);color:var(--color-text-primary);font-weight:500;border-color:var(--color-border-secondary)}
+.body{padding:1rem 1.1rem;display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+@media(max-width:500px){.body{grid-template-columns:1fr}}
+.sec{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px}
+.sl{font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px}
+.st{display:flex;gap:7px;margin-bottom:7px;font-size:12px;color:var(--color-text-primary);line-height:1.5}
+.st:last-child{margin-bottom:0}
+.sn{width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;flex-shrink:0;margin-top:2px}
+.tag{display:inline-flex;align-items:center;font-size:10px;padding:2px 7px;border-radius:20px;margin:2px 2px 2px 0;font-weight:500}
+.tip{font-size:11px;color:var(--color-text-secondary);line-height:1.5;margin-bottom:5px;padding-left:10px;border-left:2px solid var(--color-border-secondary)}
+.tip:last-child{margin-bottom:0}
+.mat{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.nav{display:flex;gap:8px;margin-top:.9rem}
+.nav button{flex:1;padding:7px;font-size:12px;cursor:pointer;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary);transition:background .15s}
+.nav button:hover{background:var(--color-background-secondary)}
+.nav button:disabled{opacity:.3;cursor:not-allowed}
+.ct-grid{padding:1rem 1.1rem;display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+@media(max-width:500px){.ct-grid{grid-template-columns:1fr}}
+.ct{border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);overflow:hidden}
+.ct-head{padding:8px 12px;display:flex;align-items:center;gap:8px}
+.ct-badge{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0}
+.ct-label{font-size:12px;font-weight:500;color:var(--color-text-primary)}
+.ct-sub{font-size:10px;color:var(--color-text-secondary)}
+.ct-body{padding:0 12px 10px}
+.q-block{margin-top:8px}
+.q-num{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-tertiary);margin-bottom:3px}
+.q-text{font-size:12px;color:var(--color-text-primary);line-height:1.5;margin-bottom:5px}
+.q-btn{font-size:10px;padding:3px 9px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;cursor:pointer;color:var(--color-text-secondary);transition:all .15s}
+.q-btn:hover{background:var(--color-background-secondary)}
+.q-ans{display:none;margin-top:5px;padding:7px 9px;border-radius:var(--border-radius-md);font-size:11px;line-height:1.5}
+.q-ans.show{display:block}
+.q-ans strong{font-weight:500;display:block;margin-bottom:2px}
+.q-path{font-size:10px;opacity:.8;margin-top:2px}
+.ct-divider{height:0.5px;background:var(--color-border-tertiary);margin:8px 0}
+.print-note{font-size:11px;color:var(--color-text-secondary);text-align:center;padding:.5rem 1.1rem .8rem;border-top:0.5px solid var(--color-border-tertiary)}
+</style>
+
+<div class="w">
+<div class="hdr">
+  <h2>Formation formateurs bénévoles — Ateliers Formateurs · CAP KHAIRDIDACT</h2>
+  <p>Séquence 2h · ~10 participants · PC + portables + projecteur + 2 paperboards</p>
+</div>
+<div class="tl" id="tl"></div>
+<div class="pc" id="card"></div>
+<div class="nav">
+  <button id="prev" onclick="go(-1)">← Précédent</button>
+  <button id="next" onclick="go(1)">Suivant →</button>
+</div>
+</div>
+
+<script>
+const PH=[
+{n:0,lb:"Lancement",dur:"10 min",ico:"🎯",
+ col:"#888780",bg:"#F1EFE8",tbg:"#D3D1C7",
+ titre:"Lancement et ancrage",
+ obj:"Créer un climat de confiance, activer le vécu des participants, cadrer les objectifs de la séquence.",
+ steps:[
+  {t:"Accueil",d:"Accueil informel, installation. Tour de table rapide : prénom + un mot sur leur dernière séance avec leurs apprenants."},
+  {t:"Paperboard 1",d:"Écrire le titre : \"Ce que je sais / Ce que je veux savoir sur le CAP\" — laisser vide, on y reviendra en fin de séquence."},
+  {t:"Cadrage",d:"Présenter les 2 objectifs (projecteur) : (1) naviguer dans le CAP en autonomie, (2) identifier les ressources utiles à sa pratique."},
+  {t:"Ouverture",d:"Ouvrir le site Ateliers Formateurs sur le projecteur. Présenter sa structure en 30 sec : \"Ce site est notre outil aujourd'hui.\""}
+ ],
+ mat:["Projecteur","Paperboard 1"],
+ tips:["Le tour de table ancre dans le concret — évitez les présentations formelles.","Ne pas encore montrer le CAP à ce stade, uniquement le site Ateliers Formateurs.","Garder le Paperboard 1 visible toute la séance."]
+},
+{n:1,lb:"Prendre en main",dur:"25 min",ico:"🗺️",
+ col:"#0F6E56",bg:"#E1F5EE",tbg:"#9FE1CB",
+ titre:"Prendre en main le CAP",
+ obj:"Que chaque participant sache naviguer dans le CAP et localiser les ressources principales selon un besoin concret.",
+ steps:[
+  {t:"Tour guidé (10 min)",d:"Projecteur sur le CAP depuis la page Prendre en main. Navigation commentée : rubriques, sous-pages, logique du site. Voix commentée, curseur visible, rythme lent."},
+  {t:"Chasse au trésor (12 min)",d:"Par binômes (A à E), chaque paire reçoit une carte avec 2 scénarios-questions. Ils naviguent dans le CAP sur leur PC/portable pour trouver les réponses. Voir l'onglet « Cartes binômes » ci-dessous."},
+  {t:"Mise en commun (3 min)",d:"Tour rapide : chaque binôme partage où il a navigué. Notez les chemins sur le Paperboard 2 (\"Chemins dans le CAP\") au fur et à mesure."}
+ ],
+ mat:["Projecteur","Portables / PC","Paperboard 2","Cartes binômes (imprimées ou partagées)"],
+ tips:["Préparez les 5 cartes à l'avance — voir l'onglet Cartes binômes.","L'outil Coaching (page Prendre en main) peut être montré rapidement — pas besoin de s'y attarder.","Tolérez que certains explorent au-delà des questions posées.","Si connexion difficile : prévoir une capture d'écran du CAP en backup."],
+ hasCT:true
+},
+{n:2,lb:"Méthodes & Roue",dur:"20 min",ico:"⚙️",
+ col:"#533AB7",bg:"#EEEDFE",tbg:"#CECBF6",
+ titre:"Méthodes et La Roue",
+ obj:"Découvrir la rubrique Méthodes et techniques et s'approprier La Roue des méthodes comme outil de diversification pédagogique.",
+ steps:[
+  {t:"Présentation collective (5 min)",d:"Projecteur sur la page Méthodes et top3-techniques. Présenter brièvement la logique de la rubrique : des fiches méthodes + un outil de tirage."},
+  {t:"Manipulation de la Roue (10 min)",d:"Chacun ouvre La Roue sur son PC. Consigne : faire tourner, lire la méthode, se demander « Est-ce que j'utilise déjà ça ? » — 3 min solo, 7 min échange en binômes."},
+  {t:"Paperboard 2 — suite (5 min)",d:"Grand groupe : noter deux colonnes — « Méthodes que j'utilise » / « Méthodes à découvrir ». Chaque binôme contribue 1 item par colonne."}
+ ],
+ mat:["Projecteur","Portables / PC","Paperboard 2"],
+ tips:["Ne pas chercher à couvrir toutes les méthodes — l'objectif est la prise de conscience de la diversité.","La Roue est le déclencheur ludique : laissez de l'espace à la surprise.","Vous pouvez faire tourner la Roue sur le projecteur en ouverture pour lancer le dynamisme."]
+},
+{n:3,lb:"Quiz & Flip-Quiz",dur:"15 min",ico:"❓",
+ col:"#BA7517",bg:"#FAEEDA",tbg:"#FAC775",
+ titre:"Quiz et Flip-Quiz des méthodes",
+ obj:"Ancrer les méthodes découvertes de façon ludique et dynamique, en collectif puis en binômes.",
+ steps:[
+  {t:"Quiz collectif (8 min)",d:"Projecteur sur la page Quiz des méthodes. Animation en mode « qui répond en premier ? » — vous lisez la question à voix haute, réponses à main levée. Rythme soutenu, ambiance légère."},
+  {t:"Flip-Quiz en binômes (7 min)",d:"Page Flip-Quiz des méthodes sur les portables. En binômes : l'un lit, l'autre répond, puis on inverse. Liberté dans l'ordre des questions."}
+ ],
+ mat:["Projecteur","Portables / PC"],
+ tips:["Le Quiz collectif n'est pas une évaluation — insistez sur l'aspect jeu.","Le passage collectif → binômes relance l'énergie si le groupe marque le pas.","Si le temps manque : privilégiez le Quiz collectif, laissez le Flip-Quiz en autonomie post-formation."]
+},
+{n:4,lb:"Scénarios & Cartes",dur:"25 min",ico:"🃏",
+ col:"#993C1D",bg:"#FAECE7",tbg:"#F5C4B3",
+ titre:"Scénarios et méthodes — travail sur les Cartes",
+ obj:"Que chaque participant projette l'usage des ressources dans SA pratique réelle, à travers un travail collaboratif sur les Cartes scénarios.",
+ steps:[
+  {t:"Présentation (3 min)",d:"Projecteur sur Scénarios et méthodes. Montrer la structure : 12 Cartes, chacune associant un scénario à des méthodes. Expliquer la logique sans entrer dans le détail."},
+  {t:"Trinômes (15 min)",d:"Groupes de 3. Chaque groupe explore 2-3 cartes de son choix. Consigne : « Pour chaque carte, identifiez un moment concret de votre séance où vous pourriez l'utiliser — et pourquoi. »"},
+  {t:"Mise en commun (7 min)",d:"Chaque groupe présente une carte : « On a choisi la Carte X. On l'utiliserait pour... parce que... » Notez les restitutions sur le Paperboard 2."}
+ ],
+ mat:["Projecteur","Portables / PC","Paperboard 2"],
+ tips:["Si hésitation sur le choix : partir de leur contexte (type d'apprenant, niveau, difficulté fréquente).","La mise en commun vaut plus que le travail en groupe — préservez-la même si le temps est court.","Laissez ouvert le nombre de cartes : certains creusent une seule carte, c'est valable."]
+},
+{n:5,lb:"Synthèse & Clôture",dur:"15 min",ico:"✅",
+ col:"#3B6D11",bg:"#EAF3DE",tbg:"#C0DD97",
+ titre:"Synthèse et clôture",
+ obj:"Ancrer les apprentissages, recueillir la satisfaction, donner une suite concrète.",
+ steps:[
+  {t:"Retour Paperboard 1 (5 min)",d:"Revenir au « Ce que je sais / veux savoir ». Grand groupe : compléter avec « Ce que j'ai appris » — quelques items rapides dictés par les participants."},
+  {t:"Page Satisfaction (5 min)",d:"Chaque participant ouvre la page Satisfaction sur son PC/portable et remplit individuellement. Laissez le silence s'installer."},
+  {t:"Tour de clôture (4 min)",d:"Tour de table express : « La prochaine fois que j'ouvre le CAP, je vais chercher... » — 1 phrase par personne, ancrée dans l'action future."},
+  {t:"Prochaines étapes (1 min)",d:"Rappeler l'accès au CAP, évoquer le prochain atelier si prévu, remercier le groupe."}
+ ],
+ mat:["Projecteur","Portables / PC","Paperboard 1"],
+ tips:["Le tour en mode « je vais chercher » ancre une intention d'action.","Si temps serré : raccourcir le Paperboard 1 plutôt que la Satisfaction.","Photographiez les deux Paperboards après la séance pour archiver les traces."]
+}
+];
+
+const CT=[
+{id:"A",col:"#0F6E56",bg:"#E1F5EE",tbg:"#9FE1CB",theme:"Groupe & rythme",
+ qs:[
+  {q:"En arrivant, vous constatez que vos apprenants sont fatigués et peu motivés ce soir. Où dans le CAP trouvez-vous des ressources pour gérer la dynamique de groupe ?",
+   r:"Gérer un groupe d'apprenants",path:"Accueil → Gérer un groupe d'apprenants"},
+  {q:"Vous souhaitez proposer une toute petite activité originale, sans lien avec votre séance habituelle, juste pour changer le rythme. Quelle rubrique du CAP est faite pour ça ?",
+   r:"Activités d'un jour",path:"Accueil → Activités d'un jour"}
+ ]},
+{id:"B",col:"#533AB7",bg:"#EEEDFE",tbg:"#CECBF6",theme:"Évaluation & supports visuels",
+ qs:[
+  {q:"Vous voulez situer le niveau de français d'un apprenant selon un référentiel reconnu au niveau européen. Quelle rubrique du CAP vous guide ?",
+   r:"Évaluer > CECRL",path:"Accueil → Évaluer → CECRL"},
+  {q:"Vous cherchez des images ou pictogrammes à utiliser directement en séance, sans les dessiner vous-même. Quelle sous-rubrique du CAP vous les fournit ?",
+   r:"Supports > Pictos",path:"Accueil → Supports → Pictos"}
+ ]},
+{id:"C",col:"#BA7517",bg:"#FAEEDA",tbg:"#FAC775",theme:"Jeu en ligne & valeurs",
+ qs:[
+  {q:"Vous voulez proposer à vos apprenants de jouer en ligne pour travailler la langue de façon ludique, entre deux séances. Quelle section du CAP vous guide ?",
+   r:"Sites utiles > Jouer en ligne",path:"Accueil → Sites utiles → Jouer en ligne"},
+  {q:"Vous vous posez des questions sur ce qui fonde votre rôle de formateur bénévole salutiste. Quelle rubrique du CAP vous répond ?",
+   r:"Agir suivant des valeurs",path:"Accueil → Agir suivant des valeurs"}
+ ]},
+{id:"D",col:"#993C1D",bg:"#FAECE7",tbg:"#F5C4B3",theme:"Méthodes & matériel local",
+ qs:[
+  {q:"Vous voulez diversifier vos approches en séance. Quelle rubrique du CAP vous présente des méthodes pédagogiques concrètes pour l'alphabétisation-FLE ?",
+   r:"Employer une méthode",path:"Accueil → Employer une méthode"},
+  {q:"Votre structure dispose d'un manuel d'alphabétisation et de jeux de plateau. Quelle rubrique du CAP fait le lien avec ce matériel physique ?",
+   r:"Mallettes locales",path:"Accueil → Mallettes locales"}
+ ]},
+{id:"E",col:"#185FA5",bg:"#E6F1FB",tbg:"#B5D4F4",theme:"Progression & création numérique",
+ qs:[
+  {q:"Un apprenant suit votre atelier depuis des mois mais ne réalise pas ses progrès. Vous voulez lui montrer son chemin parcouru. Quelle ressource du CAP vous aide ?",
+   r:"Évaluer > Valoriser le progrès",path:"Accueil → Évaluer → Valoriser le progrès"},
+  {q:"Vous souhaitez créer vous-même des activités numériques simples pour vos apprenants, sans être développeur. Où dans le CAP trouver des outils pour ça ?",
+   r:"Sites utiles > Créer ses applis",path:"Accueil → Sites utiles → Créer ses applis"}
+ ]}
+];
+
+let cur=0,view='guide';
+
+function toggleAns(btn,id){
+  const a=document.getElementById(id);
+  const show=!a.classList.contains('show');
+  a.classList.toggle('show',show);
+  btn.textContent=show?'▲ Masquer':'▼ Voir le chemin';
+}
+
+function renderTL(){
+  const el=document.getElementById('tl');
+  el.innerHTML='';
+  PH.forEach((p,i)=>{
+    const d=document.createElement('div');
+    d.className='ti'+(i===cur?' on':'');
+    d.style.setProperty('--pc',p.col);
+    d.innerHTML=`<div class="ti-n">Ph.${p.n}</div><div class="ti-t">${p.lb}</div><div class="ti-d">${p.dur}</div>`;
+    d.onclick=()=>{cur=i;view='guide';renderCard();renderTL();};
+    el.appendChild(d);
+  });
+}
+
+function renderCard(){
+  const p=PH[cur];
+  const c=document.getElementById('card');
+  let vtabsHTML='';
+  if(p.hasCT){
+    vtabsHTML=`<div class="vtabs">
+      <button class="vt${view==='guide'?' on':''}" onclick="switchView('guide')">Guide animateur</button>
+      <button class="vt${view==='ct'?' on':''}" onclick="switchView('ct')">🃏 Cartes binômes</button>
+    </div>`;
+  }
+
+  let bodyHTML='';
+  if(!p.hasCT||view==='guide'){
+    bodyHTML=`<div class="body">
+      <div>
+        <div class="sec">
+          <div class="sl">▶ Déroulé animateur</div>
+          ${p.steps.map((s,i)=>`<div class="st"><div class="sn" style="background:${p.tbg};color:${p.col}">${i+1}</div><div><span style="font-weight:500">${s.t} </span>${s.d}</div></div>`).join('')}
+        </div>
+      </div>
+      <div>
+        <div class="sec" style="margin-bottom:10px">
+          <div class="sl">🔧 Matériel</div>
+          <div class="mat">${p.mat.map(m=>`<span class="tag" style="background:${p.bg};color:${p.col}">${m}</span>`).join('')}</div>
+        </div>
+        <div class="sec">
+          <div class="sl">💡 Points d'attention</div>
+          ${p.tips.map(t=>`<div class="tip">${t}</div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  } else {
+    bodyHTML=`<div class="ct-grid">
+      ${CT.map(ct=>`<div class="ct">
+        <div class="ct-head" style="background:${ct.bg}">
+          <div class="ct-badge" style="background:${ct.tbg};color:${ct.col}">${ct.id}</div>
+          <div>
+            <div class="ct-label">Binôme ${ct.id}</div>
+            <div class="ct-sub">${ct.theme}</div>
+          </div>
+        </div>
+        <div class="ct-body">
+          ${ct.qs.map((q,qi)=>`<div class="q-block">
+            <div class="q-num">Question ${qi+1}</div>
+            <div class="q-text">${q.q}</div>
+            <button class="q-btn" onclick="toggleAns(this,'ans-${ct.id}-${qi}')">▼ Voir le chemin</button>
+            <div class="q-ans" id="ans-${ct.id}-${qi}" style="background:${ct.bg};color:${ct.col}">
+              <strong>→ ${q.r}</strong>
+              <span class="q-path">📍 ${q.path}</span>
+            </div>
+            ${qi===0?`<div class="ct-divider"></div>`:''}
+          </div>`).join('')}
+        </div>
+      </div>`).join('')}
+    </div>
+    <div class="print-note">💡 Ces cartes peuvent être imprimées (1 feuille A6 par binôme) ou partagées via lien avant la séance.</div>`;
+  }
+
+  c.innerHTML=`
+  <div class="ph">
+    <div class="pb" style="background:${p.bg};font-size:17px">${p.ico}</div>
+    <div class="pm"><h3>${p.titre}</h3><p>Phase ${p.n}</p></div>
+    <div class="pd">${p.dur}</div>
+  </div>
+  <div class="obj-bar"><div class="obj-lbl">🎯 Objectif</div>${p.obj}</div>
+  ${vtabsHTML}
+  ${bodyHTML}`;
+
+  document.getElementById('prev').disabled=cur===0;
+  document.getElementById('next').disabled=cur===PH.length-1;
+}
+
+function switchView(v){view=v;renderCard();}
+function go(d){cur=Math.max(0,Math.min(PH.length-1,cur+d));view='guide';renderTL();renderCard();}
+renderTL();renderCard();
+</script>
